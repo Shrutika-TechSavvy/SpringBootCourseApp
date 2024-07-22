@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Course App</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>All Courses</h1>
+<table border="1" cellpadding="8px" >
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="course : ${courses}">
+        <td th:text="${course.id}">1</td>
+        <td th:text="${course.name}">Course Name</td>
+        <td th:text="${course.description}">Course Description</td>
+        <td>
+            <a th:href="@{/update-course/{courseId}(courseId=${course.id})}">Update</a>
+            <form th:action="@{/courses/{courseId}(courseId=${course.id})}" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<a href="/add-course">Add New Course</a>
+</body>
+</html>
